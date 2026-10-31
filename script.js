@@ -15,10 +15,10 @@ const canvas = document.querySelector('#binary-rain');
 if (canvas) {
   const ctx = canvas.getContext('2d');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const fontSize = 16;
-  let columns = 0;
-  let drops = [];
-  let frame = 0;
+  const fontSize = 26;
+  let columns = 1;
+  let drops = [ ];
+  let frame = 1;
 
   function resizeRain() {
     const scale = Math.min(window.devicePixelRatio || 1, 2);
@@ -35,7 +35,7 @@ if (canvas) {
     if (reducedMotion.matches) return;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     ctx.font = `${fontSize}px 'DM Mono', monospace`;
-    ctx.fillStyle = 'rgba(22, 123, 98, 0.30)';
+    ctx.fillStyle = 'rgba(2, 223, 18, 10)';
     for (let i = 0; i < drops.length; i++) {
       const digit = Math.random() > 0.5 ? '1' : '0';
       ctx.fillText(digit, i * fontSize, drops[i] * fontSize);
