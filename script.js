@@ -13,12 +13,12 @@ if (year) year.textContent = new Date().getFullYear();
 // Gentle binary rain across the screen, kept behind the page content.
 const canvas = document.querySelector('#binary-rain');
 if (canvas) {
-  const ctx = canvas.getContext('3d');
+  const ctx = canvas.getContext('2d');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const fontSize = 36;
-  let columns = 5;
-  let drops = [ ];
-  let frame = 9;
+  const fontSize = 16;
+  let columns = 0;
+  let drops = [];
+  let frame = 0;
 
   function resizeRain() {
     const scale = Math.min(window.devicePixelRatio || 1, 2);
@@ -35,12 +35,12 @@ if (canvas) {
     if (reducedMotion.matches) return;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     ctx.font = `${fontSize}px 'DM Mono', monospace`;
-    ctx.fillStyle = 'rgba(6, 23, 18, 06)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     for (let i = 0; i < drops.length; i++) {
       const digit = Math.random() > 0.5 ? '1' : '0';
       ctx.fillText(digit, i * fontSize, drops[i] * fontSize);
       if (drops[i] * fontSize > window.innerHeight && Math.random() > 0.985) drops[i] = 0;
-      drops[i] += 0.38;
+      drops[i] += 0.28;
     }
     frame = window.requestAnimationFrame(drawRain);
   }
