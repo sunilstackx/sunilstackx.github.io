@@ -20,6 +20,73 @@ if (canvas) {
   let drops = [];
   let frame = 0;
 
+
+  // Array of colors for the binary rain to choose from
+  const colors = [
+    '#167B62', // Deep teal (from your earlier color)
+    '#00FF41', // Matrix Green
+    '#00E5FF', // Electric Cyan
+    '#FF007F', // Neon Pink
+    '#9D00FF', // Purple
+    '#FFD700'  // Gold
+  ];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    
+    // Initialize drops with an y-coordinate and a specific color index
+    drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = {
+        y: Math.random() * -canvas.height, // Staggered start heights
+        color: colors[Math.floor(Math.random() * colors.length)] // Assign random color
+      };
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function draw() {
+    // Clear canvas gently with semi-transparent black to create a trail effect
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = `${fontSize}px monospace`;
+
+    for (let i = 0; i < drops.length; i++) {
+      // Pick '0' or '1' randomly
+      const text = Math.random() > 0.5 ? '1' : '0';
+      const x = i * fontSize;
+      const y = drops[i].y;
+
+      // Set the specific color assigned to this column
+      ctx.fillStyle = drops[i].color;
+      ctx.fillText(text, x, y);
+
+      // Reset drop to the top with a new random color once it falls off screen
+      if (y > canvas.height && Math.random() > 0.975) {
+        drops[i].y = 0;
+        drops[i].color = colors[Math.floor(Math.random() * colors.length)];
+      } else {
+        drops[i].y += fontSize;
+      }
+    }
+
+    // Respect user's system preferences for reduced motion
+    if (!reducedMotion.matches) {
+      requestAnimationFrame(draw);
+    }
+  }
+
+  // Start the animation loop
+  draw();
+}
+
+
+  
   function resizeRain() {
     const scale = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.floor(window.innerWidth * scale);
