@@ -51,7 +51,7 @@ if (canvas) {
 
   function draw() {
     // Clear canvas gently with semi-transparent black to create a trail effect
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.font = `${fontSize}px monospace`;
