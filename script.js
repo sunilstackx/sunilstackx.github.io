@@ -35,12 +35,12 @@ if (canvas) {
     if (reducedMotion.matches) return;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     ctx.font = `${fontSize}px 'DM Mono', monospace`;
-    ctx.fillStyle = 'rgba(62, 223, 168, 106)';
+    ctx.fillStyle = 'rgba(6, 23, 18, 06)';
     for (let i = 0; i < drops.length; i++) {
       const digit = Math.random() > 0.5 ? '1' : '0';
       ctx.fillText(digit, i * fontSize, drops[i] * fontSize);
       if (drops[i] * fontSize > window.innerHeight && Math.random() > 0.985) drops[i] = 0;
-      drops[i] += 0.78;
+      drops[i] += 0.38;
     }
     frame = window.requestAnimationFrame(drawRain);
   }
